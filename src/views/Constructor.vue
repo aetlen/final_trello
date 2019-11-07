@@ -1,0 +1,97 @@
+<template>
+    <div id="constructor">
+        <div id="head">
+            <a href="https://www.hse.ru">
+                <img src="../images/hse.jpg">
+            </a>
+            <hr/>
+        </div>
+        <form>
+            <h2>Создание отчета</h2>
+            <center>
+                <table border="1" width="90%" align="center" class="CrtTbl">
+                    <tr class="CrtTbl">
+                        <td class="CrtTbl">
+                            Направление:
+                            <select>
+                                <option selected>Иформатика и выч. техника</option>
+                                <option>Инф. технологии и системы связи</option>
+                                <option>...</option>
+                            </select>
+                            <br>
+                            Группа:
+                            <select>
+                                <option selected>БИВ171</option>
+                                <option>БИВ172</option>
+                                <option>...</option>
+                            </select>
+                            <br>
+                            ФИО:
+                            <select>
+                                <option selected>Студент1</option>
+                                <option>Студент2</option>
+                                <option>...</option>
+                            </select>
+                            <br/>
+                            <hr>
+                            ID:
+                            <input type="text" name="StId">
+                        </td>
+                        <td class="CrtTbl">
+                            Источники представления:<br>
+                            <input type="checkbox" name="Src" id="SrcGit"> <label for="SrcGit">Git</label> <br>
+                            <input type="checkbox" name="Src" id="SrcTrello"> <label for="SrcTrello">Trello</label> <br>
+                            <input type="checkbox" name="Src" id="SrcGClassroom"> <label for="SrcGClassroom">GClassroom</label> <br>
+                        </td>
+                        <td class="CrtTbl">
+                            Формат отчета:<br>
+                            <input type="radio" name="Form" id="FormPdf"> <label for="FormPdf">PDF</label> <br>
+                            <input type="radio" name="Form" id="FormWord"> <label for="FormWord">Word</label> <br>
+                            <input type="radio" name="Form" id="FormJson"> <label for="FormJson">JSON</label> <br>
+                        </td>
+                        <td class="CrtTbl">
+                            Название отчета:<br>
+                            <input type="text" name="RprtName"> <br>
+                        </td>
+                    </tr>
+                </table>
+            </center>
+            <center> <input type="submit" value="Сохранить"> </center>
+        </form>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "Constructor"
+    }
+</script>
+
+<style scoped>
+    #head {
+        background-color: white;
+    }
+
+    #body CrtTbl {
+        border: 0px;
+    }
+
+    #constructor {
+        background: linear-gradient(to top, #ccccff, white);
+        font-family: "Arial light", Arial, sans-serif;
+    }
+
+    #constructor table th td {
+        border: 1px solid black;
+        align-content: center;
+    }
+
+    #constructor td {
+        align-content: center;
+        margin-left: 5px;
+    }
+
+    #constructor table {
+        border-collapse: collapse;
+    }
+</style>
