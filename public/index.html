@@ -14,4 +14,22 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <!-- SCRIPTS, bcs im lazy -->
+  <script>
+    var mail = document.querySelector("[name=StId]");
+    elem.onclick = function () {
+      localStorage.setItem("email", JSON.stringify(mail.value));
+      alert( JSON.stringify(localStorage, null, 2) );
+    }
+    /*
+    var calendar_max = document.querySelector("[name=calendar_max]");
+    var calendar_min = document.querySelector("[name=calendar_min]");
+    var time_min = new Date(calendar_min);
+    var time_max = new Date(calendar_max);
+    if (time_min > time_max)
+      console.log("more");
+    else
+      console.log("less");
+     */
+  </script>
 </html>

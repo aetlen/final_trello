@@ -42,7 +42,7 @@
                             <input type="checkbox" name="Src" id="SrcGit"> <label for="SrcGit">Git</label> <br>
                             <input type="checkbox" name="Src" id="SrcTrello"> <label for="SrcTrello">Trello</label> <br>
                             <input type="checkbox" name="Src" id="SrcGClassroom"> <label for="SrcGClassroom">GClassroom</label> <br>
-                            Выберите диапазон дат: <input type="date" name="calendar_min">-<input type="date" name="calendar_max"> <br>
+                            Выберите диапазон дат: <input type="date" name="calendar_min" value="2019-11-13">-<input type="date" name="calendar_max" value="2019-11-12"> <br>
                             Введите ссылку: <input type="text" name="SrcURL">
                         </td>
                         <td class="CrtTbl">
@@ -58,29 +58,20 @@
                     </tr>
                 </table>
             </center>
-            <!-- <center> <input type="submit" value="Сохранить" name="kavo" href="done"> </center> -->
-            <button v-on:click="check" class="btn">Сохранить</button>
+            <center> <input value="Сохранить" type="button" id="elem"> </center>
             <hr>
         </form>
     </div>
 </template>
 
 <script>
-    /*
     console.log("mhm");
     var calendar_min = document.querySelector("[name=calendar_min]");
     var calendar_max = document.querySelector("[name=calendar_max]");
-    methods: {
-        check: function() {
-            alert ("sho");
-            if (calendar_min.getTime() > calendar_max.getTime())
-            {
-                event.preventDefault();
-                alert ("первая дата не должна быть больше второй");
-            }
-        }
-    }
-    */
+    if (calendar_min > calendar_max)
+        console.log("yes");
+    else
+        console.log("yesn't");
     export default {
         name: "Constructor",
     }
