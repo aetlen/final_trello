@@ -39,7 +39,7 @@
                         </td>
                         <td class="CrtTbl">
                             Источники представления:<br>
-                            <input type="radio" name="Src" id="Git"> <label for="Git">Git</label> <br>
+                            <input type="radio" name="Src" id="Git" checked> <label for="Git">Git</label> <br>
                             <input type="radio" name="Src" id="Trello"> <label for="Trello">Trello</label> <br>
                             <input type="radio" name="Src" id="GClassroom"> <label for="GClassroom">GClassroom</label> <br>
                             Выберите диапазон дат: <input type="date" name="calendar_min">-<input type="date" name="calendar_max"> <br>
@@ -47,7 +47,7 @@
                         </td>
                         <td class="CrtTbl">
                             Формат отчета:<br>
-                            <input type="radio" name="Form" id="Pdf"> <label for="Pdf">PDF</label> <br>
+                            <input type="radio" name="Form" id="Pdf" checked> <label for="Pdf">PDF</label> <br>
                             <input type="radio" name="Form" id="Word"> <label for="Word">Word</label> <br>
                             <input type="radio" name="Form" id="Json"> <label for="Json">JSON</label> <br>
                         </td>
@@ -72,6 +72,9 @@ export default {
         submit() {
             let calendar_min = document.querySelector("[name=calendar_min]");
             let calendar_max = document.querySelector("[name=calendar_max]");
+            let url = document.querySelector("[name=SrcURL]");
+            let doc_name = document.querySelector("[name=RprtName]");
+
             let src = document.getElementsByName('Src');
             // eslint-disable-next-line no-unused-vars
             let src_num = 0;
@@ -88,11 +91,7 @@ export default {
                     form_num = i;
                 }
             }
-            console.log(calendar_min.value);
-            if (calendar_min > calendar_max)
-                console.log("yes");
-            else
-                console.log("yesn't");
+
 
             let mail = document.querySelector("[name=StId]");
             let json =
@@ -101,8 +100,12 @@ export default {
                     "date1": calendar_min.value,
                     "date2": calendar_max.value,
                     "src": src[src_num].id,
-                    "form": form[form_num].id
+                    "form": form[form_num].id,
+                    "url": url.value,
+                    "doc_name": doc_name.value
                 }]
+
+
             this.$http.post('http://jsonplaceholder.typicode.com/posts', {
                 json
             }).then(function (json) {
