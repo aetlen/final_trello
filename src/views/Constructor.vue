@@ -39,17 +39,17 @@
                         </td>
                         <td class="CrtTbl">
                             Источники представления:<br>
-                            <input type="checkbox" name="Src" id="SrcGit"> <label for="SrcGit">Git</label> <br>
-                            <input type="checkbox" name="Src" id="SrcTrello"> <label for="SrcTrello">Trello</label> <br>
-                            <input type="checkbox" name="Src" id="SrcGClassroom"> <label for="SrcGClassroom">GClassroom</label> <br>
-                            Выберите диапазон дат: <input type="date" name="calendar_min" value="2019-11-13">-<input type="date" name="calendar_max" value="2019-11-12"> <br>
+                            <input type="radio" name="Src" id="Git"> <label for="Git">Git</label> <br>
+                            <input type="radio" name="Src" id="Trello"> <label for="Trello">Trello</label> <br>
+                            <input type="radio" name="Src" id="GClassroom"> <label for="GClassroom">GClassroom</label> <br>
+                            Выберите диапазон дат: <input type="date" name="calendar_min">-<input type="date" name="calendar_max"> <br>
                             Введите ссылку: <input type="text" name="SrcURL">
                         </td>
                         <td class="CrtTbl">
                             Формат отчета:<br>
-                            <input type="radio" name="Form" id="FormPdf"> <label for="FormPdf">PDF</label> <br>
-                            <input type="radio" name="Form" id="FormWord"> <label for="FormWord">Word</label> <br>
-                            <input type="radio" name="Form" id="FormJson"> <label for="FormJson">JSON</label> <br>
+                            <input type="radio" name="Form" id="Pdf"> <label for="Pdf">PDF</label> <br>
+                            <input type="radio" name="Form" id="Word"> <label for="Word">Word</label> <br>
+                            <input type="radio" name="Form" id="Json"> <label for="Json">JSON</label> <br>
                         </td>
                         <td class="CrtTbl">
                             Название отчета:<br>
@@ -58,23 +58,59 @@
                     </tr>
                 </table>
             </center>
-            <center> <input value="Сохранить" type="button" id="elem"> </center>
+            <!--<center> <input value="Сохранить" type="button" id="elem"> </center> -->
+            <button v-on:click.prevent="submit">Сохранить</button>
             <hr>
         </form>
     </div>
 </template>
 
 <script>
-    console.log("mhm");
-    var calendar_min = document.querySelector("[name=calendar_min]");
-    var calendar_max = document.querySelector("[name=calendar_max]");
-    if (calendar_min > calendar_max)
-        console.log("yes");
-    else
-        console.log("yesn't");
-    export default {
-        name: "Constructor",
+export default {
+    name: "Constructor",
+    methods: {
+        submit() {
+            let calendar_min = document.querySelector("[name=calendar_min]");
+            let calendar_max = document.querySelector("[name=calendar_max]");
+            let src = document.getElementsByName('Src');
+            // eslint-disable-next-line no-unused-vars
+            let src_num = 0;
+            for (let i=0; i<src.length; i++) {
+                if (src[i].checked) {
+                    src_num = i;
+                }
+            }
+            let form = document.getElementsByName('Form');
+            // eslint-disable-next-line no-unused-vars
+            let form_num = 0;
+            for (let i=0; i<form.length; i++) {
+                if (form[i].checked) {
+                    form_num = i;
+                }
+            }
+            console.log(calendar_min.value);
+            if (calendar_min > calendar_max)
+                console.log("yes");
+            else
+                console.log("yesn't");
+
+            let mail = document.querySelector("[name=StId]");
+            let json =
+                [{
+                    "email": mail.value,
+                    "date1": calendar_min.value,
+                    "date2": calendar_max.value,
+                    "src": src[src_num].id,
+                    "form": form[form_num].id
+                }]
+            this.$http.post('http://jsonplaceholder.typicode.com/posts', {
+                json
+            }).then(function (json) {
+                console.log(json);
+            })
+        }
     }
+}
 </script>
 
 <style scoped>
