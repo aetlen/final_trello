@@ -39,9 +39,13 @@
                         </td>
                         <td class="CrtTbl">
                             Источники представления:<br>
-                            <input type="radio" name="Src" id="Git" checked> <label for="Git">Git</label> <br>
-                            <input type="radio" name="Src" id="Trello"> <label for="Trello">Trello</label> <br>
-                            <input type="radio" name="Src" id="GClassroom"> <label for="GClassroom">GClassroom</label> <br>
+                            <div
+                                    v-for="src in info"
+                                    v-bind:key="src.id"
+                            >
+                                <!-- this should work -->
+                                <input type="radio" name="Src" :value="src.name" id="src.description" checked> <label for="src.description">{{src.name}}</label> <br>
+                            </div>
                             Выберите диапазон дат: <input type="date" name="calendar_min">-<input type="date" name="calendar_max"> <br>
                             Введите ссылку: <input type="text" name="SrcURL">
                         </td>
@@ -66,8 +70,20 @@
 </template>
 
 <script>
+    const axios = require('axios').default;
 export default {
     name: "Constructor",
+    data() {
+        return {
+            info: null
+        };
+    },
+    mounted() {
+        axios
+            .get('http://217.73.60.64/api/modules')
+            .then(response => (this.info = response.data));
+            //if doesn't work, change response.data into response
+    },
     methods: {
         submit() {
             let calendar_min = document.querySelector("[name=calendar_min]");
@@ -92,25 +108,29 @@ export default {
                 }
             }
 
+            console.log("min = " + calendar_min.value + ", max = " + calendar_max.value);
 
+            if (calendar_min.value>calendar_max.value)
+            {
+                let a = calendar_max.value;
+                calendar_max.value = calendar_min.value;
+                calendar_min.value = a;
+                console.log("min = " + calendar_min.value + ", max = " + calendar_max.value);
+            }
             let mail = document.querySelector("[name=StId]");
             let json =
                 [{
                     "email": mail.value,
-                    "date1": calendar_min.value,
-                    "date2": calendar_max.value,
-                    "src": src[src_num].id,
+                    "calendar_min": calendar_min.value,
+                    "calendar_max": calendar_max.value,
+                    "src": src[src_num].value,
                     "form": form[form_num].id,
                     "url": url.value,
                     "doc_name": doc_name.value
                 }]
 
-
-            this.$http.post('http://jsonplaceholder.typicode.com/posts', {
-                json
-            }).then(function (json) {
-                console.log(json);
-            })
+            axios.post('http://jsonplaceholder.typicode.com/posts', json)
+            //    .then(function (response) {console.log(response)});
         }
     }
 }
